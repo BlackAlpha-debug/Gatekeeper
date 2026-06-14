@@ -13,6 +13,7 @@
   <img src="https://img.shields.io/badge/FastMCP-3.4-green?style=flat-square" alt="FastMCP">
   <img src="https://img.shields.io/badge/databases-SQLite%20%7C%20PostgreSQL-orange?style=flat-square" alt="Databases">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
+  <img src="https://img.shields.io/badge/tests-66%20passed-brightgreen?style=flat-square" alt="Tests">
   <img src="https://img.shields.io/badge/status-production--ready-brightgreen?style=flat-square" alt="Status">
 </p>
 
@@ -235,6 +236,35 @@ GITHUB_TOKEN=
 
 ---
 
+## Testing
+
+GateKeeper has a comprehensive test suite with **66 tests** covering every governance component:
+
+```bash
+# Run the full suite
+python -m pytest tests -v
+```
+
+```
+tests/test_validator.py      17 passed   — keyword blocking, word-boundary safety, injection patterns, write mode
+tests/test_masker.py         14 passed   — all sensitive patterns, extra columns, mutation safety, edge cases
+tests/test_audit.py           8 passed   — logging, retrieval, ordering, limits, timestamps, auto-increment
+tests/test_sqlite_adapter.py 11 passed   — connection, queries, schema, error handling, dict format
+tests/test_config_loader.py   7 passed   — env vars, missing config, type validation, end-to-end loading
+
+66 passed in 1.70s
+```
+
+| Module | Tests | What's Verified |
+|--------|-------|-----------------|
+| **Validator** | 17 | All 7 blocked keywords, word-boundary regex (`created_at` not blocked), case insensitivity, 5 SQL injection patterns, write mode toggle |
+| **Masker** | 14 | password, email, ssn, credit_card, api_key, token, phone, dob detection, custom extra columns, original data immutability |
+| **Audit Logger** | 8 | DB auto-creation, log/retrieve cycle, blocked flag, DESC ordering, limit enforcement, timestamp presence |
+| **SQLite Adapter** | 11 | Connection, SELECT/WHERE/COUNT/LIMIT, dict output format, non-SELECT returns empty, bad table raises, schema extraction |
+| **Config Loader** | 7 | Env var validation (missing/empty), missing config error, SQLite/unknown type handling, flag passthrough, end-to-end wiring |
+
+---
+
 ## Project Structure
 
 ```
@@ -257,6 +287,14 @@ GateKeeper/
 │   │   └── audit.py            # Query audit logging to SQLite
 │   └── api/
 │       └── connector.py        # OpenAPI spec parser & HTTP caller
+│
+├── tests/
+│   ├── conftest.py             # Shared fixtures (temp DBs, sample data)
+│   ├── test_validator.py       # 17 tests — query validation & injection blocking
+│   ├── test_masker.py          # 14 tests — sensitive column masking
+│   ├── test_audit.py           #  8 tests — audit logging & retrieval
+│   ├── test_sqlite_adapter.py  # 11 tests — SQLite adapter operations
+│   └── test_config_loader.py   #  7 tests — config loading & env vars
 │
 └── data/
     ├── local.db                # SQLite test database
