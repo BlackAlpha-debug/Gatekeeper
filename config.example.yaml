@@ -1,0 +1,24 @@
+# Copy this to config.yaml and fill in your values.
+# Never put passwords directly here — use env var names.
+
+databases:
+  - name: local
+    type: sqlite
+    path: ./data/local.db
+
+  - name: production
+    type: postgresql
+    host_env: PGHOST
+    port_env: PGPORT
+    user_env: PGUSER
+    password_env: PGPASSWORD
+    dbname_env: PGDATABASE
+
+apis:
+  - name: github
+    spec_url: https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.json
+    base_url: https://api.github.com
+    api_key_env: GITHUB_TOKEN
+
+allow_writes: false
+mask_extra_columns: []

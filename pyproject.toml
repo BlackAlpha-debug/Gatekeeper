@@ -1,0 +1,24 @@
+[project]
+name = "gatekeeper-mcp"
+version = "0.1.0"
+description = "Enterprise governance layer for MCP database and API access"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastmcp>=0.1.0",
+    "psycopg2-binary>=2.9",
+    "python-dotenv>=1.0",
+    "pyyaml>=6.0",
+    "requests>=2.31",
+]
+
+[project.scripts]
+gatekeeper = "server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["core"]
+include = ["server.py"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
