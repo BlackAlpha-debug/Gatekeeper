@@ -30,6 +30,12 @@ AI agents like Claude can now execute SQL queries directly against your database
 **GateKeeper solves all three.** It acts as a governance middleware — every query passes through validation, masking, and audit logging before results are returned. Your data stays safe, your compliance stays intact, and you have a full paper trail of every interaction.
 
 ---
+<img width="320" height="180" alt="gatekeeper recordly preview" src="https://github.com/user-attachments/assets/fbdb2fec-845a-4758-8030-37046e0bcfc7" />
+
+<img width="320" height="180" alt="image" src="https://github.com/user-attachments/assets/d86caf25-ab90-405b-a2b5-10e7937855a5" />
+
+<img width="320" height="180" alt="image" src="https://github.com/user-attachments/assets/8d106891-fcff-43a6-8745-54c0a37b1c23" />
+
 
 ## Core Features
 
